@@ -12,9 +12,7 @@ router.delete('/:_id',tokenMiddleware, userController.deleteUserById);
 router.put('/:_id',tokenMiddleware, userController.putUserData);
 router.get('/:_id',tokenMiddleware, userController.onGetUserById);
 
-
 router.post('/forgetPassword', forgatePassword.forgetPassword)
 // router.post('/resetpassword', forgatePassword.sendRestPasswordMail)
-
 
 module.exports = router;

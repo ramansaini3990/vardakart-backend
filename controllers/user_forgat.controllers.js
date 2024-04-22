@@ -1,7 +1,6 @@
 const User = require('../models/user.models');
 const randomstring = require('randomstring');
 const nodemailer = require('nodemailer');
-const config = require('../config/config');
 
 exports.sendRestPasswordMail = async (firstName, email, token) => {
     try {
@@ -11,13 +10,13 @@ exports.sendRestPasswordMail = async (firstName, email, token) => {
             secure: true,
             // requireTLS: true,
             auth: {
-                user: config.emailUser,
-                pass: config.emailPassword
+                user: process.env.ADMIN_MAIL,
+                pass: process.env.ADMIN_PASS
             }
         });
 
         const mailOptions = {
-            from: config.emailUser,
+            from: process.env.ADMIN_MAIL,
             to: email,
             subject: 'for reset password',
             html: '<p> Hii ' + firstName + ', Please click here <a href="http://127.0.0.1:4000/users/forgetPassword?token=' + token + '">and reset the password</a>'

@@ -11,7 +11,7 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true
     },
-    phoneNumber: {
+    mobileNumber: {
       type: String,
       trim: true,
       // required: true,
@@ -36,6 +36,9 @@ const userSchema = new mongoose.Schema(
     isActive: {
       type: Boolean,
       default: true,
+    },
+    gender:{
+      type:String,
     },
     token: {
       type: String,

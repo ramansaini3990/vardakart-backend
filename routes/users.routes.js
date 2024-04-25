@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const userController = require("../controllers/users.controllers");
 const { tokenMiddleware } = require("../middlewares/tokens.middlewares");
+const forgatePassword = require("../controllers/user_forgat.controllers")
 
 router.get("/", tokenMiddleware, userController.getAllUsers);
 router.post("/create", userController.createUser);

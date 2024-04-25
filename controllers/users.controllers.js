@@ -45,11 +45,11 @@ exports.logIn = async (req, res, next) => {
 //register/ sign up user api or sign up api
 exports.createUser = async (req, res) => {
   try {
-      const { email, password, firstName, lastName } = req.body;
-      const hashedPassword = await bcrypt.hash(password, 10);
+    const { email, password, firstName, lastName } = req.body;
+    const hashedPassword = await bcrypt.hash(password, 10);
     const newUser = await Users.create({
-         email, password, firstName, lastName
-      })
+      email, password, firstName, lastName
+    })
     res.status(201).json(newUser);
   } catch (error) {
     console.error("Error in createUser:", error);
@@ -59,11 +59,11 @@ exports.createUser = async (req, res) => {
 
 exports.forgatePassword = async (req, res) => {
   try {
-     const { email } = req.body;
+    const { email } = req.body;
 
   } catch (error) {
-     console.error(' Error', error)
-     res.status(500).json({ error })
+    console.error(' Error', error)
+    res.status(500).json({ error })
   }
 }
 
@@ -82,15 +82,11 @@ exports.deleteUserById = async (req, res) => {
 exports.putUserData = async (req, res) => {
   const { _id } = req.params;
   try {
-    const user = await Users.findByIdAndUpdate(_id, req.body, { new: true });
-    res
-      .status(200)
-      .json({ error: null, message: "User update succesfully", user });
+    const userData = await Users.findByIdAndUpdate(_id, req.body, { new: true });
+    res.status(200).json({ error: null, message: "User update succesfully", userData });
   } catch (error) {
     console.error("Error:", error);
-    res
-      .status(500)
-      .json({ error: error, message: "Error al actualizar usuario" });
+    res.status(500).json({ error: error, message: "Error al actualizar usuario" });
   }
 };
 
@@ -111,7 +107,8 @@ exports.Me = async (req, res) => {
     const header = req.headers.authorization;
     const token = header.split(" ")[1];
     const { userData } = verifyToken(token);
-    return res.status(200).json({ success: true, userData });
+    const user = await Users.findOne({ _id: userData._id });
+    return res.status(200).json({ success: true, userData: user });
   } catch (error) {
     console.error("Error:", error);
     return res.status(500).json({ success: false, error: error });

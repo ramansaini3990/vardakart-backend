@@ -4,8 +4,8 @@ let userData;
 const tokenMiddleware = (req, res, next) => {
   try {
     const header = req.headers.authorization;
-    const token = header.split(" ")[1];
-    if (token) {
+    if (header) {
+      const token = header.split(" ")[1];
       const decodedData = verifyToken(token);
       userData = decodedData.userData;
       if (!decodedData) {
